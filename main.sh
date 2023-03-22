@@ -19,7 +19,7 @@ bash scripts/stage4.sh
 
 # Post-processing 
 echo "Running post-processing!"
-bash script/postprocess.sh
+bash scripts/postprocess.sh
 
 
 # Check the quality of the codes
