@@ -7,6 +7,8 @@ This repository is a template for the final project of big data course in IU-202
 - `scripts/` is a place for storing `.sh` scripts and `.py` scripts of the pipeline.
 - `sql/` is a folder for keeping all `.sql` and `.hql` files.
 
+`requirements.txt` lists the Python packages needed for running your Python scripts. Feel free to add more packages when necessary.
+
 `main.sh` is the main script that will run the script `scripts/run.sh` which will execute the full pipeline and store the results in `output/` folder. During checking your project repo, the grader will run only the main script and check the results in `output/` folder.
 
 **Important Note:** You cannot change the content of the script `main.sh` since it will be used for assessment purposes.
