@@ -1,7 +1,7 @@
 This repository is a template for the final project of big data course in IU-2023. It contains the following directories:
 
 - `data/` contains the dataset files.
-- `models/` contains the ML models.
+- `models/` contains the Spark ML models.
 - `notebooks/` has the Jupyter or Zeppelin notebooks of your project and used just for learning purposes.
 - `output/` represents the output directory for storing the results of the project. It can contain `csv` files, text files. images and any other materials you returned as an ouput of the pipeline.
 - `scripts/` is a place for storing `.sh` scripts and `.py` scripts of the pipeline.
