@@ -43,4 +43,7 @@ with psql.connect(conn_string) as conn:
         for command in commands:
             cur.execute(command)
             # Read all records and print them
-            pprint(cur.fetchall())
+            queried_results = cur.fetchall()
+            for row in queried_results:
+                print(row)
+            print("")
