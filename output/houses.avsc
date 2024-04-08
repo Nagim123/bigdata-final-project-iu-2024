@@ -1,0 +1,55 @@
+{
+  "type" : "record",
+  "name" : "houses",
+  "doc" : "Sqoop import of houses",
+  "fields" : [ {
+    "name" : "house_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "house_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "id_region",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id_region",
+    "sqlType" : "5"
+  }, {
+    "name" : "street_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "street_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "postal_code",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "postal_code",
+    "sqlType" : "4"
+  }, {
+    "name" : "building_type",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "building_type",
+    "sqlType" : "5"
+  }, {
+    "name" : "geo_lon",
+    "type" : [ "null", "double" ],
+    "default" : null,
+    "columnName" : "geo_lon",
+    "sqlType" : "8"
+  }, {
+    "name" : "geo_lat",
+    "type" : [ "null", "double" ],
+    "default" : null,
+    "columnName" : "geo_lat",
+    "sqlType" : "8"
+  }, {
+    "name" : "object_type",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "object_type",
+    "sqlType" : "5"
+  } ],
+  "tableName" : "houses"
+}

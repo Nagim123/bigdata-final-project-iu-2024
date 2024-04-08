@@ -1,0 +1,61 @@
+{
+  "type" : "record",
+  "name" : "real_estate_announcements",
+  "doc" : "Sqoop import of real_estate_announcements",
+  "fields" : [ {
+    "name" : "announcement_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "announcement_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "publication_date",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "publication_date",
+    "sqlType" : "91"
+  }, {
+    "name" : "price",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "price",
+    "sqlType" : "-5"
+  }, {
+    "name" : "level",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "level",
+    "sqlType" : "5"
+  }, {
+    "name" : "levels",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "levels",
+    "sqlType" : "5"
+  }, {
+    "name" : "rooms",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "rooms",
+    "sqlType" : "5"
+  }, {
+    "name" : "area",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "area",
+    "sqlType" : "2"
+  }, {
+    "name" : "kitchen_area",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "kitchen_area",
+    "sqlType" : "2"
+  }, {
+    "name" : "house_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "house_id",
+    "sqlType" : "4"
+  } ],
+  "tableName" : "real_estate_announcements"
+}
