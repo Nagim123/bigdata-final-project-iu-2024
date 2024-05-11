@@ -6,7 +6,9 @@ USE team14_projectdb;
 
 -- Create tables
 -- houses table
-CREATE EXTERNAL TABLE houses STORED AS AVRO LOCATION 'project/warehouse/houses' TBLPROPERTIES ('avro.schema.url'='project/warehouse/avsc/houses.avsc');
+CREATE EXTERNAL TABLE houses 
+STORED AS AVRO LOCATION 'project/warehouse/houses' 
+TBLPROPERTIES ('avro.schema.url'='project/warehouse/avsc/houses.avsc');
 
 -- real estates table
 CREATE EXTERNAL TABLE real_estate_announcements STORED AS AVRO LOCATION 'project/warehouse/real_estate_announcements' TBLPROPERTIES ('avro.schema.url'='project/warehouse/avsc/real_estate_announcements.avsc');
