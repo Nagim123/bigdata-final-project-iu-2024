@@ -1,19 +1,19 @@
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP DATABASE IF EXISTS team14_projectdb CASCADE;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP DATABASE IF EXISTS team14_pr ojectdb CASCADE;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE DATABASE team14_projectdb LOCATION "project/hive/warehouse";
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE DATABASE team14_projectdb  LOCATION "project/hive/warehouse";
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team14_projectdb;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create tables
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- houses table
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE houses 
-. . . . . . . . . . . . . . . . . . . . . . .> STORED AS AVRO LOCATION 'project/warehouse/houses' 
-. . . . . . . . . . . . . . . . . . . . . . .> TBLPROPERTIES ('avro.schema.url'='project/warehouse/avsc/houses.avsc');
+. . . . . . . . . . . . . . . . . . . . . . .> STORED AS AVRO LOCATION 'project/ warehouse/houses' 
+. . . . . . . . . . . . . . . . . . . . . . .> TBLPROPERTIES ('avro.schema.url'= 'project/warehouse/avsc/houses.avsc');
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- real estates table
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE real_estate_announcements STORED AS AVRO LOCATION 'project/warehouse/real_estate_announcements' TBLPROPERTIES ('av ro.schema.url'='project/warehouse/avsc/real_estate_announcements.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE real_estate _announcements STORED AS AVRO LOCATION 'project/warehouse/real_estate_announceme nts' TBLPROPERTIES ('avro.schema.url'='project/warehouse/avsc/real_estate_announ cements.avsc');
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- For checking the content of tables
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- For checking the content of ta bles
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM houses LIMIT 5;
 +------------------+-------------------+-------------------+---------------------+-----------------------+---------------------+---------------------+---------------------+
 | houses.house_id  | houses.id_region  | houses.street_id  | houses.postal_code  | houses.building_type  |   houses.geo_lon    |   houses.geo_lat    | houses.object_type  |
@@ -24,7 +24,7 @@
 | 588624           | 26                | 309018            | 355031              | 0                     | 42.011470200000005  | 45.0240687          | 0                   |
 | 588628           | 77                | 282486            | 125195              | 3                     | 37.472459           | 55.857392000000004  | 0                   |
 +------------------+-------------------+-------------------+---------------------+-----------------------+---------------------+---------------------+---------------------+
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announcements LIMIT 5;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announc ements LIMIT 5;
 +--------------------------------------------+---------------------------------------------+----------------------------------+----------------------------------+-----------------------------------+----------------------------------+---------------------------------+-----------------------------------------+-------------------------------------+
 | real_estate_announcements.announcement_id  | real_estate_announcements.publication_date  | real_estate_announcements.price  | real_estate_announcements.level  | real_estate_announcements.levels  | real_estate_announcements.rooms  | real_estate_announcements.area  | real_estate_announcements.kitchen_area  | real_estate_announcements.house_id  |
 +--------------------------------------------+---------------------------------------------+----------------------------------+----------------------------------+-----------------------------------+----------------------------------+---------------------------------+-----------------------------------------+-------------------------------------+
@@ -37,37 +37,37 @@
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Partitioning
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- settings
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition=true;
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition.mode=nonstrict;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition=t rue;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition.m ode=nonstrict;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create houses table with partitioning by object_type
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE houses_part (
-. . . . . . . . . . . . . . . . . . . . . . .>     house_id INTEGER, id_region SMALLINT, street_id INTEGER, postal_code INTEGER, building_type SMALLINT, geo_lon FLOAT, geo_lat FLOAT
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create houses table with parti tioning by object_type
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE houses_part  (
+. . . . . . . . . . . . . . . . . . . . . . .>     house_id INTEGER, id_region S MALLINT, street_id INTEGER, postal_code INTEGER, building_type SMALLINT, geo_lon  FLOAT, geo_lat FLOAT
 . . . . . . . . . . . . . . . . . . . . . . .> )
-. . . . . . . . . . . . . . . . . . . . . . .> PARTITIONED BY (object_type SMALLINT) STORED AS AVRO LOCATION 'project/hive/warehouse/houses_part' TBLPROPERTIES ('AVRO.COMPRESS'='SNAPP Y');
+. . . . . . . . . . . . . . . . . . . . . . .> PARTITIONED BY (object_type SMALL INT) STORED AS AVRO LOCATION 'project/hive/warehouse/houses_part' TBLPROPERTIES  ('AVRO.COMPRESS'='SNAPPY');
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Insert data into houses table while specifying partition values
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE houses_part PARTITION (object_type)
-. . . . . . . . . . . . . . . . . . . . . . .> SELECT house_id, id_region, street_id, postal_code, building_type, geo_lon, geo_lat, object_type
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Insert data into houses table  while specifying partition values
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE houses_par t PARTITION (object_type)
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT house_id, id_region, stree t_id, postal_code, building_type, geo_lon, geo_lat, object_type
 . . . . . . . . . . . . . . . . . . . . . . .> FROM houses;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Bucketing
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE real_estate_announcements_buck (
-. . . . . . . . . . . . . . . . . . . . . . .>     announcement_id INTEGER, publication_date BIGINT, price BIGINT, level SMALLINT, levels SMALLINT, rooms SMALLINT, area DECIMAL(6, 3),  kitchen_area DECIMAL(6, 3), house_id INTEGER
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE real_estate _announcements_buck (
+. . . . . . . . . . . . . . . . . . . . . . .>     announcement_id INTEGER, publ ication_date BIGINT, price BIGINT, level SMALLINT, levels SMALLINT, rooms SMALLI NT, area DECIMAL(6, 3), kitchen_area DECIMAL(6, 3), house_id INTEGER
 . . . . . . . . . . . . . . . . . . . . . . .> )
-. . . . . . . . . . . . . . . . . . . . . . .> CLUSTERED BY (announcement_id) into 7 buckets 
-. . . . . . . . . . . . . . . . . . . . . . .> STORED AS AVRO LOCATION 'project/hive/warehouse/real_estate_announcements_buck' TBLPROPERTIES ('AVRO.COMPRESS'='SNAPPY');
+. . . . . . . . . . . . . . . . . . . . . . .> CLUSTERED BY (announcement_id) in to 7 buckets 
+. . . . . . . . . . . . . . . . . . . . . . .> STORED AS AVRO LOCATION 'project/ hive/warehouse/real_estate_announcements_buck' TBLPROPERTIES ('AVRO.COMPRESS'='S NAPPY');
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE real_estate_announcements_buck
-. . . . . . . . . . . . . . . . . . . . . . .> SELECT announcement_id, publication_date as publication_date, price, level, levels, rooms, area, kitchen_area, house_id
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE real_estat e_announcements_buck
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT announcement_id, publicati on_date as publication_date, price, level, levels, rooms, area, kitchen_area, ho use_id
 . . . . . . . . . . . . . . . . . . . . . . .> FROM real_estate_announcements;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Checking
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Select data from the houses_part partitioned by object_type
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM houses_part LIMIT 5;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Select data from the houses_pa rt partitioned by object_type
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM houses_part LIMIT 5 ;
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
 | houses_part.house_id  | houses_part.id_region  | houses_part.street_id  | houses_part.postal_code  | houses_part.building_type  | houses_part.geo_lon  | houses_part.geo_lat  | houses_part.object_type  |
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
@@ -77,7 +77,7 @@
 | 588624                | 26                     | 309018                 | 355031                   | 0                          | 42.01147             | 45.024067            | 0                        |
 | 588628                | 77                     | 282486                 | 125195                   | 3                          | 37.472458            | 55.85739             | 0                        |
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM houses_part WHERE object_type = 2 LIMIT 5;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM houses_part WHERE o bject_type = 2 LIMIT 5;
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
 | houses_part.house_id  | houses_part.id_region  | houses_part.street_id  | houses_part.postal_code  | houses_part.building_type  | houses_part.geo_lon  | houses_part.geo_lat  | houses_part.object_type  |
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
@@ -88,8 +88,8 @@
 | 592458                | 54                     | 119384                 | 633100                   | 1                          | 82.73438             | 54.97904             | 2                        |
 +-----------------------+------------------------+------------------------+--------------------------+----------------------------+----------------------+----------------------+--------------------------+
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Select data from the real_estate_announcements_buck clustered by announcement_id
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announcements_buck LIMIT 5;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Select data from the real_esta te_announcements_buck clustered by announcement_id
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announc ements_buck LIMIT 5;
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
 | real_estate_announcements_buck.announcement_id  | real_estate_announcements_buck.publication_date  | real_estate_announcements_buck.price  | real_estate_announcements_buck.level  | real_estate_announcements_buck.levels  | real_estate_announcements_buck.rooms  | real_estate_announcements_buck.area  | real_estate_announcements_buck.kitchen_area  | real_estate_announcements_buck.house_id  |
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
@@ -99,7 +99,7 @@
 | 3406588                                         | 1619470800000                                    | 7400000                               | 9                                     | 10                                     | 4                                     | 87.600                               | 0.000                                        | 1443906                                  |
 | 3406584                                         | 1619470800000                                    | 3060000                               | 1                                     | 4                                      | 2                                     | 57.900                               | 16.100                                       | 2039859                                  |
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announcements_buck WHERE announcement_id = 2 LIMIT 5;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM real_estate_announc ements_buck WHERE announcement_id = 2 LIMIT 5;
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
 | real_estate_announcements_buck.announcement_id  | real_estate_announcements_buck.publication_date  | real_estate_announcements_buck.price  | real_estate_announcements_buck.level  | real_estate_announcements_buck.levels  | real_estate_announcements_buck.rooms  | real_estate_announcements_buck.area  | real_estate_announcements_buck.kitchen_area  | real_estate_announcements_buck.house_id  |
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
@@ -107,6 +107,6 @@
 +-------------------------------------------------+--------------------------------------------------+---------------------------------------+---------------------------------------+----------------------------------------+---------------------------------------+--------------------------------------+----------------------------------------------+------------------------------------------+
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE houses;
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE real_estate_announcements;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE real_estate_announceme nts;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

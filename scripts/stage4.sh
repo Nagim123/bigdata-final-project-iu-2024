@@ -32,3 +32,5 @@ hdfs dfs -cp /user/team14/project/output/model2_predictions.csv /user/team14/pro
 hdfs dfs -cp /user/team14/project/output/evaluation.csv /user/team14/project/output/evaluation_copy.csv
 
 beeline -u jdbc:hive2://hadoop-03.uni.innopolis.ru:10001 -n team14 -p $password -f sql/evaluation.hql
+
+rm -f -r scripts/.ipynb_checkpoints
