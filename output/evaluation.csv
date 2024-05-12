@@ -1,3 +1,3 @@
 model,RMSE,R2
-"LinearRegressionModel: uid=LinearRegression_c84c36037aa3, numFeatures=22",2145380.627837002,0.6138958155314316
-"RandomForestRegressionModel: uid=RandomForestRegressor_ea6b1b1e3723, numTrees=50, numFeatures=22",1409385.4045684366,0.8228690002134815
+"LinearRegressionModel: uid=LinearRegression_1103fa0c2043, numFeatures=22",1976613.7473703916,0.6515995897708617
+"RandomForestRegressionModel: uid=RandomForestRegressor_642718fd1097, numTrees=50, numFeatures=22",1409394.1005564886,0.8228668143900655

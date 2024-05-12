@@ -1,6 +1,10 @@
-## Location of the repository on the cluster
-**/home/team14/project/bigdata-final-project-iu-2024**
 
+## Location of the repository on the cluster
+❗❗❗
+**/home/team14/project/bigdata-final-project-iu-2024**
+❗❗❗
+
+## Template description
 This repository is a template for the final project of big data course in IU-2023. It contains the following directories:
 
 - `data/` contains the dataset files.

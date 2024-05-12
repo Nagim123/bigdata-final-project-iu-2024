@@ -121,6 +121,8 @@ df = df.filter((col("price") >= 500_000) & (col("price") <= 100_000_000))
 print("The dataframe that will be used")
 df.show()
 
+print("The number of items left in the dataset:")
+
 # Make sure we still satisfy the requirements
 df.count()
 
