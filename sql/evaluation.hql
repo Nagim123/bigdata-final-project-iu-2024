@@ -45,22 +45,3 @@ tblproperties("skip.header.line.count"="1");
 LOAD DATA INPATH '/user/team14/project/output/evaluation_copy.csv' INTO TABLE evaluation;
 
 SELECT * FROM evaluation;
-
-
-DROP TABLE IF EXISTS evaluation;
-
-CREATE EXTERNAL TABLE evaluation(
-model STRING,
-rmse FLOAT,
-r2 FLOAT)
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-WITH SERDEPROPERTIES (
-    "separatorChar" = ",",
-    "quoteChar"     = "\""
-)
-location 'project/hive/warehouse/evaluation'
-tblproperties("skip.header.line.count"="1");
-
-LOAD DATA INPATH '/user/team14/project/output/evaluation_copy.csv' INTO TABLE evaluation;
-
-SELECT * FROM evaluation;
