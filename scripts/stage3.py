@@ -25,7 +25,7 @@ from pyspark.ml.feature import VectorAssembler, RobustScaler, OneHotEncoder, Vec
 from pyspark.ml.param.shared import HasInputCol, HasOutputCol
 from pyspark.ml.regression import LinearRegression, RandomForestRegressor
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
-# from pyspark.ml.util import DefaultParamsReadable, DefaultParamsWritable
+from pyspark.ml.util import DefaultParamsReadable
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when, from_unixtime, month, dayofmonth, sin, cos, udf
 from pyspark.sql.types import ArrayType, DoubleType
@@ -44,10 +44,10 @@ spark = SparkSession.builder\
         .config("spark.sql.avro.compression.codec", "snappy")\
         .config("spark.shuffle.service.enabled", "false")\
         .config("spark.dynamicAllocation.enabled", "false")\
-        .config("spark.cores.max", "15")\
-        .config("spark.executor.instances","15")\
-        .config("spark.executor.memory","13g")\
-        .config("spark.executor.cores","15")\
+        .config("spark.cores.max", "5")\
+        .config("spark.executor.instances","5")\
+        .config("spark.executor.memory","8g")\
+        .config("spark.executor.cores","5")\
         .enableHiveSupport()\
         .getOrCreate()
 
@@ -124,31 +124,19 @@ df.show()
 # Make sure we still satisfy the requirements
 df.count()
 
-class TimeEncoder(Transformer, HasInputCol, HasOutputCol):
+class TimeEncoder(Transformer, HasInputCol, DefaultParamsReadable):
     """
     A custom transformer to encode date using sin and cos
     """
     pi = 3.141592653589793
 
     @keyword_only
-    def __init__(self, inputCol=None, outputCol=None):
+    def __init__(self, **kwargs):
         super().__init__()
         self._setDefault(inputCol="publication_date")
-        self.set_params(inputCol, outputCol)
-
-    @keyword_only
-    def set_params(self, input_col: str = "input", output_col: str = "output"):
-        """
-        Set the input and output columns of the transformer
-        """
-        kwargs = {"inputCol": input_col, "outputCol": output_col}
+        # kwargs = self._input_kwargs
         self._set(**kwargs)
 
-    def set_input_col(self, value):
-        """
-        Set the input column for the transformer
-        """
-        return self._set(inputCol=value)
 
     def getInputCol(self):
         return self.getOrDefault(self.inputCol)
@@ -172,30 +160,17 @@ class TimeEncoder(Transformer, HasInputCol, HasOutputCol):
         return dataset
 
 
-class GeoToECEF(Transformer, HasInputCol, HasOutputCol):
+class GeoToECEF(Transformer, HasOutputCol, DefaultParamsReadable):
     """
     Custom transformer to encode longtitude and latitude columns to the
     ECEF format
     """
     @keyword_only
-    def __init__(self, inputCol=None, outputCol=None):
+    def __init__(self, **kwargs):
         super().__init__()
         self._setDefault(outputCol="ecef_coordinates")
-        self.set_params(inputCol, outputCol)
-
-    @keyword_only
-    def set_params(self, input_col: str = "input", output_col: str = "output"):
-        """
-        Set the input and output columns for the transformerS
-        """
-        kwargs = {"inputCol": input_col, "outputCol": output_col}
+        # kwargs = self._input_kwargs
         self._set(**kwargs)
-
-    def set_output_col(self, value):
-        """
-        Set the output column to the transformer
-        """
-        return self._set(outputCol=value)
 
     def getOutputCol(self):
         return self.getOrDefault(self.outputCol)
@@ -217,8 +192,7 @@ class GeoToECEF(Transformer, HasInputCol, HasOutputCol):
         geo_to_ecef_udf = udf(geo_to_ecef, ArrayType(DoubleType()))
         dataset = dataset.withColumn(
             self.getOutputCol(),
-            geo_to_ecef_udf(dataset["geo_lat"],
-                            dataset["geo_lon"])
+            geo_to_ecef_udf(dataset["geo_lat"], dataset["geo_lon"])
         )
         return dataset
 
